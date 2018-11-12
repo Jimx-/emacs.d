@@ -39,7 +39,7 @@
 (require 'init-ui)
 (require 'init-utils)
 (require 'init-highlight)
-(require 'init-evil)
+;(require 'init-evil)
 (require 'init-edit)
 (require 'init-windows)
 (require 'init-prettify)
