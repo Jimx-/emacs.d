@@ -72,10 +72,6 @@
 
 ;; Miscs
 
-;; Display tildes on empty lines in the Emacs fringe a la Vi.
-(use-package vi-tilde-fringe
-  :hook ((prog-mode text-mode conf-mode) . vi-tilde-fringe-mode))
-
 (tooltip-mode -1) ; relegate tooltips to echo area only
 (menu-bar-mode -1)
 (if (fboundp 'tool-bar-mode)   (tool-bar-mode -1))

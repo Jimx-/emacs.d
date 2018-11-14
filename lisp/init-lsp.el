@@ -10,7 +10,7 @@
     "Restart LSP server."
     (interactive)
     (lsp-restart-workspace)
-    (revert-buffer t t)
+n    (revert-buffer t t)
     (message "LSP server restarted."))
 
   ;; https://github.com/emacs-lsp/lsp-mode/issues/377
@@ -112,5 +112,10 @@
                     ".ccls")
                   projectile-project-root-files-top-down-recurring))))
 
-(provide 'init-lsp)
+;; Racket support for lsp-mode
+(use-package lsp-racket
+  :disabled
+  :commands lsp-racket-enable
+  :hook (racket-mode . lsp-racket-enable))
 
+(provide 'init-lsp)

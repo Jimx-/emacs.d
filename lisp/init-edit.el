@@ -43,4 +43,8 @@
   :diminish undo-tree-mode
   :hook (after-init . global-undo-tree-mode))
 
+;; Expand region
+(use-package expand-region
+  :bind (("C-=" . er/expand-region)))
+
 (provide 'init-edit)
