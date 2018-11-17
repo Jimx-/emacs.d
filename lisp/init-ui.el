@@ -70,7 +70,39 @@
   (when (fontp custom-variable-pitch-font)
     (set-face-attribute 'variable-pitch nil :font custom-variable-pitch-font)))
 
+;; Line number
+(setq line-number-mode t)
+
+;; Show native line numbers if possible, otherwise use linum
+(if (fboundp 'display-line-numbers-mode)
+    (use-package display-line-numbers
+      :ensure nil
+      :hook (prog-mode . display-line-numbers-mode))
+  (use-package linum-off
+    :demand
+    :defines linum-format
+    :hook (after-init . global-linum-mode)
+    :config
+    (setq linum-format "%4d ")
+
+    ;; Highlight current line number
+    (use-package hlinum
+      :defines linum-highlight-in-all-buffersp
+      :hook (global-linum-mode . hlinum-activate)
+      :init
+      (setq linum-highlight-in-all-buffersp t)
+      (custom-set-faces
+       `(linum-highlight-face
+         ((t (:inherit 'default :background ,(face-background 'default) :foreground ,(face-foreground 'default)))))))))
+
 ;; Miscs
+
+(use-package hide-mode-line
+  :hook (((completion-list-mode
+           completion-in-region-mode
+           neotree-mode
+           treemacs-mode)
+          . hide-mode-line-mode)))
 
 (tooltip-mode -1) ; relegate tooltips to echo area only
 (menu-bar-mode -1)

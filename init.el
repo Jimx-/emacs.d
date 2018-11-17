@@ -50,6 +50,7 @@
 (require 'init-projectile)
 (require 'init-lsp)
 
+(require 'init-lispy)
 (require 'init-python)
 (require 'init-racket)
 (require 'init-org)
