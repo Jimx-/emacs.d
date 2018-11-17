@@ -78,4 +78,9 @@
               ("C-`" . hs-toggle-hiding))
   :diminish hs-minor-mode)
 
+;; Editor config
+(use-package editorconfig
+  :diminish editorconfig-mode
+  :hook (after-init . editorconfig-mode))
+
 (provide 'init-edit)

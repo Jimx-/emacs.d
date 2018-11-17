@@ -54,6 +54,7 @@
 (require 'init-python)
 (require 'init-racket)
 (require 'init-org)
+(require 'init-web)
 
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
