@@ -104,10 +104,11 @@
            treemacs-mode)
           . hide-mode-line-mode)))
 
-(tooltip-mode -1) ; relegate tooltips to echo area only
-(menu-bar-mode -1)
-(if (fboundp 'tool-bar-mode)   (tool-bar-mode -1))
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(unless (> emacs-major-version 26)     ; moved to early-init.el in emacs 27
+  (tooltip-mode -1)              ; relegate tooltips to echo area only
+  (menu-bar-mode -1)
+  (if (fboundp 'tool-bar-mode)   (tool-bar-mode -1))
+  (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1)))
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
