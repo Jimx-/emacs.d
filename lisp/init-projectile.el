@@ -1,6 +1,6 @@
 (use-package projectile
   :bind (:map projectile-mode-map
-              ("s-t" . projectile-find-file) ; `cmd-t' or `super-t'
+              ("C-x p" . projectile-find-file)
               ("C-c p" . projectile-command-map))
   :hook (after-init . projectile-mode)
   :init

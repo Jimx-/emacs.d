@@ -13,9 +13,4 @@
          ("C-c D" . crux-delete-file-and-buffer)
          ("C-c r" . crux-rename-file-and-buffer)))
 
-(use-package ag
-  :config
-  (setq ag-highlight-search t)
-  (setq ag-reuse-buffers t))
-
 (provide 'init-utils)

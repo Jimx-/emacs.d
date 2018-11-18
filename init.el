@@ -42,7 +42,10 @@
 ;(require 'init-evil)
 (require 'init-edit)
 (require 'init-windows)
+(require 'init-dired)
 (require 'init-prettify)
+(require 'init-flycheck)
+(require 'init-grep)
 
 (require 'init-ivy)
 (require 'init-company)
@@ -50,7 +53,7 @@
 (require 'init-projectile)
 (require 'init-lsp)
 
-(require 'init-lispy)
+(require 'init-lisp)
 (require 'init-python)
 (require 'init-racket)
 (require 'init-org)
