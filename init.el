@@ -53,6 +53,8 @@
 (require 'init-projectile)
 (require 'init-lsp)
 
+(require 'init-mail)
+
 (require 'init-lisp)
 (require 'init-python)
 (require 'init-racket)
