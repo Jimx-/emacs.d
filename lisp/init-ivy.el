@@ -39,15 +39,15 @@
   (use-package counsel-projectile
     :init (counsel-projectile-mode 1)))
 
-(when (> emacs-major-version 25)
-  (use-package ivy-posframe
-    :hook (ivy-mode . ivy-posframe-enable)
-    :config
-    (setq ivy-fixed-height-minibuffer nil
-          ivy-posframe-parameters
-          `((min-width . 70)
-            (min-height . ,ivy-height)
-        (internal-border-width . 10))
-          ivy-display-function #'ivy-posframe-display-at-window-center)))
+(use-package ivy-posframe
+  :if (> emacs-major-version 25)
+  :hook (ivy-mode . ivy-posframe-enable)
+  :config
+  (setq ivy-fixed-height-minibuffer nil
+        ivy-posframe-parameters
+        `((min-width . 70)
+          (min-height . ,ivy-height)
+          (internal-border-width . 10))
+        ivy-display-function #'ivy-posframe-display-at-window-center))
 
 (provide 'init-ivy)
