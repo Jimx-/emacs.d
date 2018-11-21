@@ -31,6 +31,13 @@
   (use-package org-preview-html
     :diminish org-preview-html-mode)
 
+  ;; Capture templates
+  (setq org-capture-templates
+        `(("p" "Protocol" entry (file+headline ,(concat org-directory "notes.org") "Web Links")
+           "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+          ("L" "Protocol Link" entry (file+headline ,(concat org-directory "notes.org") "Web Links")
+           "* %? [[%:link][%:description]] :link:\n")))
+
   ;; Publishing
   (setq org-publish-project-alist
         '(("org-jimx"

@@ -13,7 +13,20 @@
 
 ;; Modeline
 
+(use-package smart-mode-line
+  :ensure t
+  :hook (after-init . sml/setup)
+  :config
+  (setq sml/theme 'respectful)
+  (setq sml/no-confirm-load-theme t)
+  (add-to-list 'sml/replacer-regexp-list
+             '("^~/projects/\\(\\w+\\)/"
+               (lambda (s) (concat ":Prj<" (match-string 1 s) ">:")
+                 ))
+             t))
+
 (use-package spaceline-config
+  :disabled
   :ensure spaceline
   :defines (powerline-default-separator
             powerline-image-apple-rgb
