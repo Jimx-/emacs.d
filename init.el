@@ -39,7 +39,8 @@
 (require 'init-ui)
 (require 'init-utils)
 (require 'init-highlight)
-;(require 'init-evil)
+(require 'init-uniquify)
+                                        ;(require 'init-evil)
 (require 'init-edit)
 (require 'init-windows)
 (require 'init-dired)
@@ -60,6 +61,7 @@
 (require 'init-racket)
 (require 'init-org)
 (require 'init-web)
+(require 'init-scala)
 
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient

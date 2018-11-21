@@ -22,7 +22,8 @@
 
 ;; Jump to things in Emacs tree-style
 (use-package avy
-  :bind (("C-'" . avy-goto-char-2))
+  :bind (("C-:" . avy-goto-char)
+         ("C-'" . avy-goto-char-2))
   :hook (after-init . avy-setup-default)
   :config (setq avy-background t))
 
