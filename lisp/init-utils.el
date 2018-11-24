@@ -11,6 +11,8 @@
          ("C-k" . crux-smart-kill-line)
          ("C-c d" . crux-duplicate-current-line-or-region)
          ("C-c D" . crux-delete-file-and-buffer)
-         ("C-c r" . crux-rename-file-and-buffer)))
+         ("C-c r" . crux-rename-file-and-buffer)
+         ("s-j" . crux-top-join-line)
+         ("s-k" . crux-kill-whole-line)))
 
 (provide 'init-utils)

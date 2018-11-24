@@ -97,7 +97,8 @@ Pretty symbols can be unset for emacs-lisp-mode with:
                 pretty-code-symbols-alist))
         (push (cons mode results) pretty-code-symbols-alist)))))
 
-(add-hook 'after-change-major-mode-hook #'init-pretty-symbols)
+(when (display-graphic-p)
+  (add-hook 'after-change-major-mode-hook #'init-pretty-symbols))
 
 (defun pretty-code--correct-symbol-bounds (ligature-alist)
   "Prepend non-breaking spaces to a ligature.
@@ -229,6 +230,7 @@ correct width of the symbols instead of the width measured by `char-width'."
                         (mapcar #'pretty-code--correct-symbol-bounds
                                 pretty-code-fira-code-font-ligatures))))
 
-(add-hook 'after-init-hook #'setup-fira-ligatures)
+(when (display-graphic-p)
+  (add-hook 'after-init-hook #'setup-fira-ligatures))
 
 (provide 'init-prettify)

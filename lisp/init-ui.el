@@ -11,19 +11,27 @@
 (defvar custom-variable-pitch-font nil
   "The default font for variable-pitch text.")
 
-;; Modeline
+(setq
+ frame-title-format
+ '("emacs@" (:eval (system-name)) ": " (:eval (if (buffer-file-name)
+                                                  (abbreviate-file-name (buffer-file-name))
+                                                "%b")))
+ icon-title-format frame-title-format)
+
+ ;; Modeline
 
 (use-package smart-mode-line
+  :disabled
   :ensure t
   :hook (after-init . sml/setup)
   :config
   (setq sml/theme 'respectful)
   (setq sml/no-confirm-load-theme t)
   (add-to-list 'sml/replacer-regexp-list
-             '("^~/projects/\\(\\w+\\)/"
-               (lambda (s) (concat ":Prj<" (match-string 1 s) ">:")
-                 ))
-             t))
+               '("^~/projects/\\(\\w+\\)/"
+                 (lambda (s) (concat ":Prj<" (match-string 1 s) ">:")
+                   ))
+               t))
 
 (use-package spaceline-config
   :disabled
@@ -39,6 +47,11 @@
   :config
   (setq spaceline-pre-hook #'powerline-reset) ; For changing themes
   (setq spaceline-highlight-face-func 'spaceline-highlight-face-modified))
+
+(use-package doom-modeline
+  :init (setq doom-modeline-icon (display-graphic-p))
+  :hook ((after-init . doom-modeline-init)
+         (dashboard-mode . doom-modeline-set-project-modeline)))
 
 ;; Theme
 

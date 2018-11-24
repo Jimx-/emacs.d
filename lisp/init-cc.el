@@ -2,9 +2,24 @@
   :ensure nil
   :commands (c-mode c++-mode objc-mode java-mode)
   :init
-  (setq-default c-backspace-function #'delete-backward-char
+  (setq-default tab-width 4
+                c-basic-offset tab-width
                 c-default-style "stroustrup")
   :config
+  ;; Pretty symbols
+  (set-pretty-symbols '(c-mode c++-mode)
+    :null "nullptr"
+    :true "true" :false "false"
+    :int "int" :str "std::string"
+    :float "float"
+    :bool "bool"
+    :tuple "tuple"
+    ;; Flow
+    :not "!"
+    :and "and" :or "or"
+    :for "for"
+    :return "return")
+
   ;; Style/formatting
   ;; C/C++ style settings
   (c-toggle-electric-state -1)
@@ -19,7 +34,11 @@
   (c-set-offset 'access-label '-)
   (c-set-offset 'arglist-intro '+)
   (c-set-offset 'arglist-close '0)
-  (c-set-offset 'innamespace '0))
+  (c-set-offset 'innamespace '0)
+
+  (setq c-tab-always-indent nil))
 
 (use-package modern-cpp-font-lock
   :hook (c++-mode . modern-c++-font-lock-mode))
+
+(provide 'init-cc)
