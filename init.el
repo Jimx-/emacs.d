@@ -63,6 +63,8 @@
 (require 'init-org)
 (require 'init-web)
 (require 'init-elixir)
+(require 'init-haskell)
+(require 'init-idris)
 
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient

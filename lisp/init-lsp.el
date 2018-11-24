@@ -10,7 +10,7 @@
     "Restart LSP server."
     (interactive)
     (lsp-restart-workspace)
-n    (revert-buffer t t)
+    (revert-buffer t t)
     (message "LSP server restarted."))
 
   ;; https://github.com/emacs-lsp/lsp-mode/issues/377
