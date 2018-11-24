@@ -62,6 +62,7 @@
 (require 'init-racket)
 (require 'init-org)
 (require 'init-web)
+(require 'init-elixir)
 
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
