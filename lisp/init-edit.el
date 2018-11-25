@@ -84,4 +84,10 @@
   :diminish editorconfig-mode
   :hook (after-init . editorconfig-mode))
 
+;; Kill & Mark Things Easily in Emacs
+(use-package easy-kill
+  :ensure t
+  :bind (("M-w" . easy-kill)
+         ("C-M-SPC" . easy-mark)))
+
 (provide 'init-edit)
