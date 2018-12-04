@@ -118,4 +118,13 @@
   :commands lsp-racket-enable
   :hook (racket-mode . lsp-racket-enable))
 
+;; Elixir support
+(use-package lsp-elixir
+  :after elixir-mode
+  :load-path "~/sources/lsp-elixir"
+  :commands lsp-elixir-enable
+  :hook
+  ((elixir-mode . lsp-elixir-enable)
+   (elixir-mode . (lambda () (add-hook 'before-save-hook 'lsp-format-buffer)))))
+
 (provide 'init-lsp)
