@@ -6,8 +6,8 @@
 
 ;; A Collection of Ridiculously Useful eXtensions for Emacs
 (use-package crux
-  :bind (("M-o" . crux-smart-open-line)
-         ("M-O" . crux-smart-open-line-above)
+  :bind (("S-<return>" . crux-smart-open-line)
+         ("C-S-<return>" . crux-smart-open-line-above)
          ("C-k" . crux-smart-kill-line)
          ("C-c d" . crux-duplicate-current-line-or-region)
          ("C-c D" . crux-delete-file-and-buffer)
