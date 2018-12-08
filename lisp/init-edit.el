@@ -90,4 +90,16 @@
   :bind (("M-w" . easy-kill)
          ("C-M-SPC" . easy-mark)))
 
+
+;; Auto-close delimiters and blocks as you type
+(use-package smartparens
+  :hook (after-init . smartparens-global-mode)
+  :config
+  (require 'smartparens-config)
+
+  (setq sp-highlight-pair-overlay nil
+        sp-cancel-autoskip-on-backward-movment nil
+        sp-show-pair-delay 0
+        sp-max-pair-length 3))
+
 (provide 'init-edit)

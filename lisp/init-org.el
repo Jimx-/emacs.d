@@ -23,6 +23,7 @@
                                (sass . t)
                                (C . t)
                                (java . t)
+                               (dot . t)
                                (plantuml . t)))
 
   (org-babel-do-load-languages 'org-babel-load-languages load-language-list)
@@ -60,7 +61,7 @@
 
           ("org-static-jimx"
            :base-directory "~/org/blog/assets"
-           :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
+           :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php\\|svg"
            :publishing-directory "~/projects/jekyll/assets"
            :recursive t
            :publishing-function org-publish-attachment)
