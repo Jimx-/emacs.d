@@ -1,6 +1,7 @@
 (use-package lsp-mode
   :diminish lsp-mode
   :config
+  (require 'lsp-clients)
   (setq lsp-message-project-root-warning t
         create-lockfiles nil)
 
@@ -100,8 +101,9 @@
 ;;          refer to  https://github.com/MaskRay/ccls/wiki/Getting-started
 (use-package ccls
   :defines projectile-project-root-files-top-down-recurring
-  :commands lsp-ccls-enable
-  :hook ((c-mode c++-mode objc-mode) . lsp-ccls-enable)
+  :hook ((c-mode c++-mode objc-mode) . (lambda ()
+                                         (require 'ccls)
+                                         (lsp)))
   :config
   (setq ccls-extra-init-params
         '(:completion (:detailedLabel t) :xref (:container t)

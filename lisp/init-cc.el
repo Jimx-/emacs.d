@@ -41,4 +41,11 @@
 (use-package modern-cpp-font-lock
   :hook (c++-mode . modern-c++-font-lock-mode))
 
+;; Clang-format emacs integration for use with C/Objective-C/C++.
+(use-package clang-format
+  :bind (("C-c i" . clang-format-region)
+         ("C-c u" . clang-format-buffer))
+  :config
+  (setq clang-format-style-option "llvm"))
+
 (provide 'init-cc)

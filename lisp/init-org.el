@@ -31,6 +31,9 @@
   (use-package org-preview-html
     :diminish org-preview-html-mode)
 
+  ;; Convert buffer text and decorations to HTML
+  (use-package htmlize)
+
   ;; Capture templates
   (setq org-capture-templates
         `(("p" "Protocol" entry (file+headline ,(concat org-directory "notes.org") "Web Links")
@@ -42,7 +45,7 @@
   (setq org-publish-project-alist
         '(("org-jimx"
            ;; Path to your org files.
-           :base-directory "~/org/blog"
+           :base-directory "~/org/blog/"
            :base-extension "org"
 
            ;; Path to your Jekyll project.
