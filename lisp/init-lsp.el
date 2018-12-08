@@ -1,54 +1,48 @@
 (use-package lsp-mode
+  :commands lsp
   :diminish lsp-mode
-  :config
-  (require 'lsp-clients)
-  (setq lsp-message-project-root-warning t
-        create-lockfiles nil)
-
-  ;; Restart server/workspace in case the lsp server exits unexpectedly.
-  ;; https://emacs-china.org/t/topic/6392
-  (defun restart-lsp-server ()
-    "Restart LSP server."
-    (interactive)
-    (lsp-restart-workspace)
-    (revert-buffer t t)
-    (message "LSP server restarted."))
-
+  :hook ((go-mode python-mode ruby-mode php-mode
+                  html-mode web-mode json-mode
+                  css-mode less-mode sass-mode scss-mode
+                  js-mode js2-mode typescript-mode
+                  rust-mode groovy-mode) . lsp)
+  :init
+  ;; Support LSP in org babel
   ;; https://github.com/emacs-lsp/lsp-mode/issues/377
-  (cl-defmacro org-babel-lsp (lang &optional enable-name)
-    "Support LANG in org source code block. "
-    (cl-check-type lang string)
-    (cl-check-type enable-name (or null string))
-    (let ((edit-pre (intern (format "org-babel-edit-prep:%s" lang)))
-          (client (intern (format "lsp-%s-enable" (or enable-name lang)))))
+  (cl-defmacro lsp-org-babel-enbale (lang)
+    "Support LANG in org source code block."
+    ;; (cl-check-type lang symbolp)
+    (let* ((edit-pre (intern (format "org-babel-edit-prep:%s" lang)))
+           (intern-pre (intern (format "lsp--%s" (symbol-name edit-pre)))))
       `(progn
-         (defun ,edit-pre (babel-info)
-           (let ((lsp-file (or (->> babel-info caddr (alist-get :file))
+         (defun ,intern-pre (info)
+           (let ((lsp-file (or (->> info caddr (alist-get :file))
                                buffer-file-name)))
              (setq-local buffer-file-name lsp-file)
              (setq-local lsp-buffer-uri (lsp--path-to-uri lsp-file))
-             (,client)))
-         (put ',edit-pre 'function-documentation
-              (format "Prepare local buffer environment for org source block (%s)."
-                      (upcase ,lang))))))
+             (lsp)))
+         (if (fboundp ',edit-pre)
+             (advice-add ',edit-pre :after ',intern-pre)
+           (progn
+             (defun ,edit-pre (info)
+               (,intern-pre info))
+             (put ',edit-pre 'function-documentation
+                  (format "Prepare local buffer environment for org source block (%s)."
+                          (upcase ,lang))))))))
 
-  ;; FIXME: https://github.com/emacs-lsp/lsp-python/issues/28
-  (defun lsp--suggest-project-root ()
-    "Get project root."
-    (or
-     (when (featurep 'projectile) (projectile-project-root))
-     (when (featurep 'project)
-       (when-let ((project (project-current)))
-         (car (project-roots project))))
-     default-directory))
+  (defvar org-babel-lang-list
+    '("go" "python" "ipython" "ruby" "js" "css" "sass" "C" "rust" "java"))
+  (dolist (lang org-babel-lang-list)
+    (eval `(lsp-org-babel-enbale ,lang)))
 
-  (require 'lsp-imenu)
-  (add-hook 'lsp-after-open-hook 'lsp-enable-imenu))
+  :config
+  (require 'lsp-clients))
 
 (use-package lsp-ui
   :bind (:map lsp-ui-mode-map
               ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
-              ([remap xref-find-references] . lsp-ui-peek-find-references))
+              ([remap xref-find-references] . lsp-ui-peek-find-references)
+              ("C-c u" . lsp-ui-imenu))
   :hook (lsp-mode . lsp-ui-mode)
   :init
   (setq-default lsp-ui-doc-frame-parameters
@@ -89,21 +83,14 @@
   :functions company-backend-with-yas
   :init (cl-pushnew (company-backend-with-yas 'company-lsp) company-backends))
 
-;; Python support for lsp-mode using pyls.
-;; Install: pip install python-language-server
-(use-package lsp-python
-  :commands lsp-python-enable
-  :hook (python-mode . lsp-python-enable)
-  :config (org-babel-lsp "python"))
-
 ;; C/C++/Objective-C lang server support for lsp-mode using clang
 ;; Install: yaourt ccls
 ;;          refer to  https://github.com/MaskRay/ccls/wiki/Getting-started
 (use-package ccls
   :defines projectile-project-root-files-top-down-recurring
-  :hook ((c-mode c++-mode objc-mode) . (lambda ()
-                                         (require 'ccls)
-                                         (lsp)))
+  :hook ((c-mode c++-mode objc-mode cuda-mode) . (lambda ()
+                                                   (require 'ccls)
+                                                   (lsp)))
   :config
   (setq ccls-extra-init-params
         '(:completion (:detailedLabel t) :xref (:container t)
@@ -113,20 +100,5 @@
           (append '("compile_commands.json"
                     ".ccls")
                   projectile-project-root-files-top-down-recurring))))
-
-;; Racket support for lsp-mode
-(use-package lsp-racket
-  :disabled
-  :commands lsp-racket-enable
-  :hook (racket-mode . lsp-racket-enable))
-
-;; Elixir support
-(use-package lsp-elixir
-  :after elixir-mode
-  :load-path "~/sources/lsp-elixir"
-  :commands lsp-elixir-enable
-  :hook
-  ((elixir-mode . lsp-elixir-enable)
-   (elixir-mode . (lambda () (add-hook 'before-save-hook 'lsp-format-buffer)))))
 
 (provide 'init-lsp)
