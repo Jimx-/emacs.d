@@ -7,6 +7,7 @@
                   js-mode js2-mode typescript-mode
                   rust-mode groovy-mode) . lsp)
   :init
+  (setq lsp-prefer-flymake nil)
   ;; Support LSP in org babel
   ;; https://github.com/emacs-lsp/lsp-mode/issues/377
   (cl-defmacro lsp-org-babel-enbale (lang)
@@ -31,7 +32,7 @@
                           (upcase ,lang))))))))
 
   (defvar org-babel-lang-list
-    '("go" "python" "ipython" "ruby" "js" "css" "sass" "C" "rust" "java"))
+    '("go" "ruby" "js" "css" "sass" "C" "rust" "java"))
   (dolist (lang org-babel-lang-list)
     (eval `(lsp-org-babel-enbale ,lang)))
 
@@ -86,16 +87,27 @@
 ;; C/C++/Objective-C lang server support for lsp-mode using clang
 ;; Install: yaourt ccls
 ;;          refer to  https://github.com/MaskRay/ccls/wiki/Getting-started
+(defun clang-format-buffer-smart ()
+  "Reformat buffer if .clang-format exists in the projectile root."
+  (when (f-exists?
+         (expand-file-name
+          ".clang-format"
+          (projectile-project-root)))
+    (lsp-format-buffer)))
+
 (use-package ccls
   :defines projectile-project-root-files-top-down-recurring
-  :hook ((c-mode c++-mode objc-mode cuda-mode) . (lambda ()
-                                                   (require 'ccls)
-                                                   (lsp)))
+  :hook (((c-mode c++-mode objc-mode cuda-mode) . (lambda ()
+                                                    (require 'ccls)
+                                                    (lsp)))
+         ((c-mode c++-mode) . (lambda ()
+                                (add-hook 'before-save-hook 'clang-format-buffer-smart nil t))))
   :config
   (setq ccls-extra-init-params
         '(:completion (:detailedLabel t) :xref (:container t)
                       :diagnostics (:frequencyMs 5000)))
   (with-eval-after-load 'projectile
+    (add-to-list 'projectile-globally-ignored-directories ".ccls-cache")
     (setq projectile-project-root-files-top-down-recurring
           (append '("compile_commands.json"
                     ".ccls")

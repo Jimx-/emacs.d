@@ -36,7 +36,11 @@
   (c-set-offset 'arglist-close '0)
   (c-set-offset 'innamespace '0)
 
-  (setq c-tab-always-indent nil))
+  (setq c-tab-always-indent nil
+        c-electric-flag nil)
+
+  (dolist (key '("#" "}" "/" "*" ";" "," ":" "(" ")" "\177"))
+    (define-key c-mode-base-map key nil)))
 
 (use-package modern-cpp-font-lock
   :hook (c++-mode . modern-c++-font-lock-mode))

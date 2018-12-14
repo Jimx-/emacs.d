@@ -212,7 +212,7 @@ correct width of the symbols instead of the width measured by `char-width'."
     ("<<="         . #Xe15e)
     ("<<<"         . #Xe15f)
     ("<~"          . #Xe160)
-    ("<~~"         . #Xe161)
+    ;; ("<~~"         . #Xe161)
     ("</"          . #Xe162)
     ("</>"         . #Xe163)
     ("~@"          . #Xe164)
@@ -224,7 +224,8 @@ correct width of the symbols instead of the width measured by `char-width'."
     ("%%"          . #Xe16a)))
 
 (defun setup-fira-ligatures ()
-  (set-fontset-font t '(#Xe100 . #Xe16f) pretty-code-fira-code-font-name)
+  (set-fontset-font t '(#Xe100 . #Xe160) pretty-code-fira-code-font-name)
+  (set-fontset-font t '(#Xe162 . #Xe16f) pretty-code-fira-code-font-name)
   (setq-default prettify-symbols-alist
                 (append prettify-symbols-alist
                         (mapcar #'pretty-code--correct-symbol-bounds

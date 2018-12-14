@@ -18,35 +18,7 @@
                                                 "%b")))
  icon-title-format frame-title-format)
 
- ;; Modeline
-
-(use-package smart-mode-line
-  :disabled
-  :ensure t
-  :hook (after-init . sml/setup)
-  :config
-  (setq sml/theme 'respectful)
-  (setq sml/no-confirm-load-theme t)
-  (add-to-list 'sml/replacer-regexp-list
-               '("^~/projects/\\(\\w+\\)/"
-                 (lambda (s) (concat ":Prj<" (match-string 1 s) ">:")
-                   ))
-               t))
-
-(use-package spaceline-config
-  :disabled
-  :ensure spaceline
-  :defines (powerline-default-separator
-            powerline-image-apple-rgb
-            spaceline-pre-hook
-            spaceline-highlight-face-func)
-  :functions powerline-reset
-  :hook (after-init . spaceline-spacemacs-theme)
-  :init
-  (setq powerline-default-separator (or (and (display-graphic-p) 'wave) 'utf-8))
-  :config
-  (setq spaceline-pre-hook #'powerline-reset) ; For changing themes
-  (setq spaceline-highlight-face-func 'spaceline-highlight-face-modified))
+;; Modeline
 
 (use-package doom-modeline
   :init (setq doom-modeline-icon (display-graphic-p))

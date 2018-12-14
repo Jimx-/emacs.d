@@ -24,8 +24,7 @@
 ;; Environment management
 (use-package pipenv
   :commands (pipenv-project-p)
-  :hook (python-mode . pipenv-mode)
-  :init (setq pipenv-with-projectile nil))
+  :hook (python-mode . pipenv-mode))
 
 ;; Yapf for Emacs
 ;; Install: pip install yapf

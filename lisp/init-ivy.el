@@ -14,15 +14,27 @@
   :hook ((after-init . ivy-mode)
          (ivy-mode . counsel-mode))
   :config
-  (setq ivy-use-virtual-buffers t
+  (setq ivy-use-virtual-buffers nil
+        ivy-format-function #'ivy-format-function-line
         ivy-initial-inputs-alist nil
+        ivy-use-selectable-prompt t
         ivy-count-format "(%d/%d) ")
+
+  (setq ivy-re-builders-alist
+        '((read-file-name-internal . ivy--regex-fuzzy)
+          (t . ivy--regex-plus)))
 
   ;; Integration with `projectile'
   (with-eval-after-load 'projectile
     (setq projectile-completion-system 'ivy))
 
+  ;; Ignore hidden files
+  (setq counsel-find-file-ignore-regexp "\\(?:^[#.]\\)\\|\\(?:[#~]$\\)\\|\\(?:^Icon?\\)")
+
+  ;; Enhance fuzzy matching
   (use-package flx)
+
+  ;; Enhance M-x
   (use-package amx)
 
   ;; More friendly display transformer for Ivy
@@ -39,6 +51,7 @@
   (use-package counsel-projectile
     :init (counsel-projectile-mode 1)))
 
+;; Use posframe to show candidates
 (use-package ivy-posframe
   :if (> emacs-major-version 25)
   :hook (ivy-mode . ivy-posframe-enable)

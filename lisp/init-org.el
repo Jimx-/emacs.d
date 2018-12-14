@@ -1,13 +1,35 @@
 (use-package org
   :ensure nil
+  ;; Use variable pitch font when writing prose in Org-mode
+  :hook (org-mode . variable-pitch-mode)
   :config
   (setq org-agenda-files '("~/org")
         org-todo-keywords '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)" "CANCEL(c)"))
-        org-startup-indented t)
+        org-startup-indented t
+        org-hide-emphasis-markers t
+        org-hide-leading-stars t)
 
   ;; Fancy UI
   (use-package org-bullets
     :hook (org-mode . org-bullets-mode))
+
+  ;; Use bar cursor under
+  (add-hook 'org-mode-hook '(lambda () (setq cursor-type 'bar)))
+
+  ;; Use fixed pitch font for org-block, etc.
+  (add-hook 'org-mode-hook '(lambda ()
+                              (mapc (lambda (face)
+                                      (set-face-attribute face nil :inherit 'fixed-pitch))
+                                    '(org-code org-block org-table org-link org-verbatim
+                                               org-block-begin-line org-block-end-line
+                                               org-meta-line org-document-info-keyword
+                                               org-indent))))
+
+  ;; Pretty symbols
+  (set-pretty-symbols 'org-mode
+    :name "#+NAME:"
+    :src_block "#+BEGIN_SRC"
+    :src_block_end "#+END_SRC")
 
   ;; Babel
   (setq org-confirm-babel-evaluate nil

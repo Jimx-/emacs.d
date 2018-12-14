@@ -29,6 +29,11 @@
   :diminish
   :hook ((emacs-lisp-mode web-mode css-mode) . rainbow-mode))
 
+;; Highlight some operations
+(use-package volatile-highlights
+  :diminish
+  :hook (after-init . volatile-highlights-mode))
+
 ;; Visualize TAB, (HARD) SPACE, NEWLINE
 (use-package whitespace
   :ensure nil

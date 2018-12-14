@@ -90,16 +90,27 @@
   :bind (("M-w" . easy-kill)
          ("C-M-SPC" . easy-mark)))
 
+;; Automatic parenthesis pairing
+(use-package elec-pair
+  :ensure nil
+  :hook (after-init . electric-pair-mode)
+  :init (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit))
 
 ;; Auto-close delimiters and blocks as you type
 (use-package smartparens
+  :disabled
   :hook (after-init . smartparens-global-mode)
   :config
   (require 'smartparens-config)
 
   (setq sp-highlight-pair-overlay nil
-        sp-cancel-autoskip-on-backward-movment nil
-        sp-show-pair-delay 0
-        sp-max-pair-length 3))
+        sp-highlight-wrap-overlay nil
+        sp-highlight-wrap-tag-overlay nil
+        sp-show-pair-from-inside t
+        sp-cancel-autoskip-on-backward-movement nil
+        sp-show-pair-delay 0.1
+        sp-max-pair-length 4
+        sp-max-prefix-length 50
+        sp-escape-quotes-after-insert nil))
 
 (provide 'init-edit)

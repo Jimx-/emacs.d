@@ -2,7 +2,8 @@
   :diminish flycheck-mode
   :hook (after-init . global-flycheck-mode)
   :config
-  (setq flycheck-emacs-lisp-load-path 'inherit)
+  (setq flycheck-indication-mode 'right-fringe
+        flycheck-emacs-lisp-load-path 'inherit)
 
   ;; Display Flycheck errors in GUI tooltips
   (if (and (display-graphic-p) (> emacs-major-version 25))
