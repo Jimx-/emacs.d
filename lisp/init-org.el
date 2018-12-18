@@ -55,40 +55,7 @@
     :diminish org-preview-html-mode)
 
   ;; Convert buffer text and decorations to HTML
-  (use-package htmlize)
-
-  ;; Capture templates
-  (setq org-capture-templates
-        `(("p" "Protocol" entry (file+headline ,(concat org-directory "notes.org") "Web Links")
-           "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-          ("L" "Protocol Link" entry (file+headline ,(concat org-directory "notes.org") "Web Links")
-           "* %? [[%:link][%:description]] :link:\n")))
-
-  ;; Publishing
-  (setq org-publish-project-alist
-        '(("org-jimx"
-           ;; Path to your org files.
-           :base-directory "~/org/blog/"
-           :base-extension "org"
-
-           ;; Path to your Jekyll project.
-           :publishing-directory "~/projects/jekyll/"
-           :recursive t
-           :publishing-function org-html-publish-to-html
-           :headline-levels 4
-           :html-extension "html"
-           :body-only t ;; Only export section between <body> </body>
-           )
-
-
-          ("org-static-jimx"
-           :base-directory "~/org/blog/assets"
-           :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php\\|svg"
-           :publishing-directory "~/projects/jekyll/assets"
-           :recursive t
-           :publishing-function org-publish-attachment)
-
-          ("jimx" :components ("org-jimx" "org-static-jimx")))))
+  (use-package htmlize))
 
 (defun org-custom-link-img-follow (path)
   (org-open-file-with-emacs path))

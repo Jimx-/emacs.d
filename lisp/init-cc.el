@@ -40,7 +40,10 @@
         c-electric-flag nil)
 
   (dolist (key '("#" "}" "/" "*" ";" "," ":" "(" ")" "\177"))
-    (define-key c-mode-base-map key nil)))
+    (define-key c-mode-base-map key nil))
+
+  (dolist (key '("<" ">"))
+    (define-key c++-mode-map key nil)))
 
 (use-package modern-cpp-font-lock
   :hook (c++-mode . modern-c++-font-lock-mode))
