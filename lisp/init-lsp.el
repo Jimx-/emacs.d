@@ -40,12 +40,15 @@
   (require 'lsp-clients))
 
 (use-package lsp-ui
+  :after lsp-mode
+  ;; :load-path "~/projects/lsp-ui/"
   :bind (:map lsp-ui-mode-map
               ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
               ([remap xref-find-references] . lsp-ui-peek-find-references)
               ("C-c u" . lsp-ui-imenu))
   :hook (lsp-mode . lsp-ui-mode)
   :init
+  ;; (setq lsp-ui-doc-use-webkit t)
   (setq-default lsp-ui-doc-frame-parameters
                 '((left . -1)
                   (top . -1)
@@ -71,7 +74,7 @@
                   (cursor-type)
                   (no-special-glyphs . t)))
   :config
-  (setq lsp-ui-doc-enable nil
+  (setq lsp-ui-doc-enable t
         lsp-enable-completion-at-point t
         lsp-ui-doc-position 'top
         lsp-ui-doc-header nil
@@ -112,5 +115,11 @@
           (append '("compile_commands.json"
                     ".ccls")
                   projectile-project-root-files-top-down-recurring))))
+
+(use-package lsp-haskell
+  :hook ((haskell-mode . (lambda ()
+                           (require 'lsp-haskell)
+                           (lsp)))
+         (haskell-mode . (lambda () (add-hook 'before-save-hook 'lsp-format-buffer)))))
 
 (provide 'init-lsp)

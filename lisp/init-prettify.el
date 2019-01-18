@@ -1,3 +1,5 @@
+(require 'subr-x)
+
 (defvar pretty-code-symbols-alist '((t))
   "An alist containing a mapping of major modes to its value for
 `prettify-symbols-alist'.")

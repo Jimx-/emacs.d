@@ -61,6 +61,7 @@
 (require 'init-python)
 (require 'init-racket)
 (require 'init-org)
+(require 'init-markdown)
 (require 'init-web)
 (require 'init-elixir)
 (require 'init-haskell)

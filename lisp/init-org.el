@@ -3,11 +3,13 @@
   ;; Use variable pitch font when writing prose in Org-mode
   :hook (org-mode . variable-pitch-mode)
   :config
-  (setq org-agenda-files '("~/org")
+  (setq org-agenda-files (ignore-errors (directory-files-recursively org-directory "^\\(_.*\\|ref\\)\\.org$" t))
         org-todo-keywords '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)" "CANCEL(c)"))
         org-startup-indented t
         org-hide-emphasis-markers t
-        org-hide-leading-stars t)
+        org-hide-leading-stars t
+        org-refile-targets '((nil :maxlevel . 3)
+(org-agenda-files :maxlevel . 3)))
 
   ;; Fancy UI
   (use-package org-bullets
@@ -22,8 +24,8 @@
                                       (set-face-attribute face nil :inherit 'fixed-pitch))
                                     '(org-code org-block org-table org-link org-verbatim
                                                org-block-begin-line org-block-end-line
-                                               org-meta-line org-document-info-keyword
-                                               org-indent))))
+                                               org-meta-line org-document-info-keyword))
+                              (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))))
 
   ;; Pretty symbols
   (set-pretty-symbols 'org-mode
