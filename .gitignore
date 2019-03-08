@@ -65,4 +65,5 @@ tmp*
 ido.*
 flycheck_*.el*
 README.html
-
+init-local.el
+init-preload-local.el

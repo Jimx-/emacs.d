@@ -74,7 +74,7 @@
                   (cursor-type)
                   (no-special-glyphs . t)))
   :config
-  (setq lsp-ui-doc-enable t
+  (setq lsp-ui-doc-enable nil
         lsp-enable-completion-at-point t
         lsp-ui-doc-position 'top
         lsp-ui-doc-header nil

@@ -47,6 +47,7 @@
 (require 'init-prettify)
 (require 'init-flycheck)
 (require 'init-grep)
+(require 'init-shell)
 
 (require 'init-ivy)
 (require 'init-company)
@@ -66,6 +67,8 @@
 (require 'init-elixir)
 (require 'init-haskell)
 (require 'init-idris)
+(require 'init-go)
+(require 'init-latex)
 
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient

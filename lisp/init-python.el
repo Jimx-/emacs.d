@@ -36,4 +36,4 @@
 ;; Install: pip install isort
 (use-package py-isort)
 
-  (provide 'init-python)
+(provide 'init-python)
