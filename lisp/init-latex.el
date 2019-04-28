@@ -30,9 +30,9 @@
 (use-package latex-preview-pane
   )
 
-(use-package adaptive-wrap
-  :hook (LaTeX-mode . adaptive-wrap-prefix-mode)
-  :init (setq-default adaptive-wrap-extra-indent 0))
+;; (use-package adaptive-wrap
+;;   :hook (LaTeX-mode . adaptive-wrap-prefix-mode)
+;;   :init (setq-default adaptive-wrap-extra-indent 0))
 
 ;; Fontification taken from https://tex.stackexchange.com/a/86119/81279
 (setq font-latex-match-reference-keywords
