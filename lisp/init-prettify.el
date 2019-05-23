@@ -9,6 +9,9 @@
     :name          "»"
     :src_block     "»"
     :src_block_end " "
+    :checkbox-checked "☑"
+    :checkbox-empty   "☐"
+    :checkbox-inter   "❍"
     ;; Functional
     :lambda        "λ"
     :def           "ƒ"
