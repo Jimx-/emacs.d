@@ -121,7 +121,7 @@
             counsel-recentf
             (:columns
              ((ivy-rich-file-icon)
-              (ivy-rich-candidate (:width 0.8))
+              (ivy-rich-candidate (:width 0.7))
               (ivy-rich-file-last-modified-time (:face font-lock-comment-face))
               ))))
 
@@ -140,14 +140,14 @@
 ;; Use posframe to show candidates
 (use-package ivy-posframe
   :if (> emacs-major-version 25)
-  ;; :hook (ivy-mode . ivy-posframe-enable)
+  :hook (ivy-mode . ivy-posframe-enable)
   :config
   (setq ivy-fixed-height-minibuffer nil
         ivy-posframe-parameters
-        `((min-width . 90)
+        `((min-width . 70)
           (min-height . ,ivy-height)
-          (internal-border-width . 5))
-        ivy-display-function #'ivy-posframe-display-at-window-center)
+          (internal-border-width . 2))
+        ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-center)))
 
   (dolist (fn '(swiper counsel-ag counsel-grep counsel-git-grep))
     (setf (alist-get fn ivy-display-functions-alist) #'ivy-display-function-fallback)))
