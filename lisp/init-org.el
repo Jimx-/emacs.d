@@ -31,7 +31,10 @@
   (set-pretty-symbols 'org-mode
     :name "#+NAME:"
     :src_block "#+BEGIN_SRC"
-    :src_block_end "#+END_SRC")
+    :src_block_end "#+END_SRC"
+    :checkbox-checked "[X]"
+    :checkbox-empty "[ ]"
+    :checkbox-inter "[-]")
 
   ;; Babel
   (setq org-confirm-babel-evaluate nil
