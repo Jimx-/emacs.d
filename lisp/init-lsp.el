@@ -116,6 +116,13 @@
                     ".ccls")
                   projectile-project-root-files-top-down-recurring))))
 
+(use-package lsp-python-ms
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-python-ms)
+                         (lsp)))
+  :config
+  (setq lsp-python-ms-executable "/usr/bin/mspyls"))
+
 (use-package lsp-haskell
   :hook ((haskell-mode . (lambda ()
                            (require 'lsp-haskell)
