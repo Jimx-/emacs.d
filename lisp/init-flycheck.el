@@ -2,7 +2,7 @@
   :diminish flycheck-mode
   :hook (after-init . global-flycheck-mode)
   :config
-  (setq flycheck-indication-mode 'right-fringe
+  (setq flycheck-indication-mode 'left-fringe
         flycheck-emacs-lisp-load-path 'inherit)
 
   ;; Display Flycheck errors in GUI tooltips
