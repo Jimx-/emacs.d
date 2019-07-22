@@ -46,6 +46,7 @@
 (require 'init-dired)
 (require 'init-prettify)
 (require 'init-flycheck)
+(require 'init-flyspell)
 (require 'init-grep)
 (require 'init-shell)
 

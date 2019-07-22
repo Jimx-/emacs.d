@@ -20,6 +20,12 @@
 
 ;; Modeline
 
+(use-package nyan-mode
+  :init (setq nyan-animate-nyancat t
+              nyan-bar-length 16
+              nyan-wavy-trail t)
+  :hook ((after-init . nyan-mode)))
+
 (use-package doom-modeline
   :init (setq doom-modeline-icon (display-graphic-p))
   :hook ((after-init . doom-modeline-init)

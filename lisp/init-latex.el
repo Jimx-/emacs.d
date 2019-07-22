@@ -9,7 +9,8 @@
          (TeX-mode . visual-line-mode)
          (TeX-mode . TeX-fold-mode)
          (TeX-mode . rainbow-delimiters-mode)
-         (TeX-mode . LaTeX-math-mode))
+         (TeX-mode . LaTeX-math-mode)
+         (TeX-mode . flyspell-mode))
   :init
   (add-hook 'TeX-mode-hook (lambda () (setq cursor-type 'bar)))
 
