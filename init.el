@@ -1,5 +1,5 @@
 ;; -*- lexical-binding: t -*-
-(setq debug-on-error t)
+(setq debug-on-error nil)
 
 
 (let ((minver "24.4"))
@@ -70,6 +70,7 @@
 (require 'init-idris)
 (require 'init-go)
 (require 'init-latex)
+(require 'init-rust)
 
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient

@@ -1,7 +1,8 @@
 (use-package org
   :ensure nil
   ;; Use variable pitch font when writing prose in Org-mode
-  :hook (org-mode . variable-pitch-mode)
+  :hook ((org-mode . variable-pitch-mode)
+         (org-mode . visual-line-mode))
   :config
   (setq org-agenda-files (ignore-errors (directory-files-recursively org-directory "^\\(_.*\\|ref\\)\\.org$" t))
         org-todo-keywords '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)" "CANCEL(c)"))
