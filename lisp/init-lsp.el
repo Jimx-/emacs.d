@@ -1,11 +1,12 @@
 (use-package lsp-mode
   :commands lsp
   :diminish lsp-mode
-  :hook ((go-mode python-mode ruby-mode php-mode
-                  html-mode web-mode json-mode
-                  css-mode less-mode sass-mode scss-mode
-                  js-mode js2-mode typescript-mode
-                  rust-mode groovy-mode) . lsp)
+  :hook (((go-mode python-mode ruby-mode php-mode
+                   html-mode web-mode json-mode
+                   css-mode less-mode sass-mode scss-mode
+                   js-mode js2-mode typescript-mode
+                   rust-mode groovy-mode) . lsp)
+         (((haskell-mode rust-mode) . (lambda () (add-hook 'before-save-hook 'lsp-format-buffer)))))
   :init
   (setq lsp-prefer-flymake nil)
   ;; Support LSP in org babel
@@ -106,6 +107,12 @@
          ((c-mode c++-mode) . (lambda ()
                                 (add-hook 'before-save-hook 'clang-format-buffer-smart nil t))))
   :config
+  (dolist (dir '(".ccls-cache" "build" "googletest"))
+    (add-to-list 'lsp-file-watch-ignored dir))
+
+  (define-advice c-clear-string-fences (:around (fn) inhibit-args-out-of-range-error)
+    (ignore-errors
+      (funcall fn)))
   (setq ccls-extra-init-params
         '(:completion (:detailedLabel t) :xref (:container t)
                       :diagnostics (:frequencyMs 5000)))
@@ -126,7 +133,8 @@
 (use-package lsp-haskell
   :hook ((haskell-mode . (lambda ()
                            (require 'lsp-haskell)
-                           (lsp)))
-         (haskell-mode . (lambda () (add-hook 'before-save-hook 'lsp-format-buffer)))))
+                           (lsp))))
+  :init
+  (setq lsp-haskell--make-init-options '()))
 
 (provide 'init-lsp)

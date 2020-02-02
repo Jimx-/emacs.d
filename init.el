@@ -1,5 +1,5 @@
 ;; -*- lexical-binding: t -*-
-(setq debug-on-error nil)
+(setq debug-on-error t)
 
 
 (let ((minver "24.4"))

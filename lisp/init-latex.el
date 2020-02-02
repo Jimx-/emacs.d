@@ -12,6 +12,9 @@
          (TeX-mode . LaTeX-math-mode)
          (TeX-mode . flyspell-mode))
   :init
+  (setq TeX-parse-self t
+        TeX-auto-save t)
+
   (add-hook 'TeX-mode-hook (lambda () (setq cursor-type 'bar)))
 
   (add-hook 'TeX-mode-hook
@@ -123,7 +126,7 @@
           ("setlistdepth" "{")
           ("restartlist" "{")
           ("crefname" "{")))
-)
+  )
 
 (use-package reftex
   :hook (LaTeX-mode . reftex-mode)
@@ -140,6 +143,8 @@
     (setq bibtex-completion-bibliography (list (expand-file-name custom-latex-bibtex-file)))))
 
 (use-package company-auctex)
+(use-package company-reftex)
+(use-package company-math)
 
 (use-package latex-preview-pane
   :config

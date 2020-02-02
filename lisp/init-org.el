@@ -3,14 +3,27 @@
   ;; Use variable pitch font when writing prose in Org-mode
   :hook ((org-mode . variable-pitch-mode)
          (org-mode . visual-line-mode))
+
   :config
-  (setq org-agenda-files (ignore-errors (directory-files-recursively org-directory "^\\(_.*\\|ref\\)\\.org$" t))
+  (setq org-directory "~/org/"
+        org-agenda-files (ignore-errors (directory-files-recursively org-directory "^\\(_.*\\|ref\\)\\.org$" t))
+        org-attach-id-dir (concat org-directory ".attach/")
+        org-attach-store-link-p t
         org-todo-keywords '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)" "CANCEL(c)"))
         org-startup-indented t
         org-hide-emphasis-markers t
         org-hide-leading-stars t
         org-refile-targets '((nil :maxlevel . 3)
-(org-agenda-files :maxlevel . 3)))
+                             (org-agenda-files :maxlevel . 3)))
+
+  ;; Syntax highlight for code segment
+  (setq org-latex-listings 'minted
+        org-latex-packages-alist '(("" "minted"))
+        org-latex-pdf-process
+        '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f")
+        org-latex-minted-options
+        '(("linenos=true") ("breaklines")))
 
   ;; Fancy UI
   (use-package org-bullets
@@ -61,7 +74,33 @@
     :diminish org-preview-html-mode)
 
   ;; Convert buffer text and decorations to HTML
-  (use-package htmlize))
+  (use-package htmlize)
+
+  ;; Handle non-image files a little differently. Images should be inserted
+  ;; as-is, as image previews. Other files, like pdfs or zips, should be linked
+  ;; to, with an icon indicating the type of file.
+  (advice-add 'org-download-insert-link :override #'org-custom-download-insert-link))
+
+(defun org-custom-download-insert-link (_link filename)
+  (if (looking-back "^[ \t]+" (line-beginning-position))
+        (delete-region (match-beginning 0) (match-end 0))
+      (newline))
+    (cond ((image-type-from-file-name filename)
+           (insert
+            (concat (if (= org-download-image-html-width 0) ""
+                      (format "#+attr_html: :width %dpx\n" org-download-image-html-width))
+                    (if (= org-download-image-latex-width 0) ""
+                      (format "#+attr_latex: :width %dcm\n" org-download-image-latex-width))
+                    (cond ((file-in-directory-p filename org-attach-directory)
+                           (format "[[file:%s]]" filename))
+                          ((file-in-directory-p filename org-directory)
+                           (format org-download-link-format (file-relative-name filename org-directory)))
+                          ((format org-download-link-format filename)))))
+           (org-display-inline-images))
+          ((insert
+            (format "[[./%s][%s]] "
+                    (file-relative-name filename (file-name-directory buffer-file-name))
+                    (file-name-nondirectory (directory-file-name filename)))))))
 
 (defun org-custom-link-img-follow (path)
   (org-open-file-with-emacs path))
@@ -72,5 +111,19 @@
     (format "<img src=\"%s\" alt=\"%s\"/>" (substring path 2) desc))))
 
 (add-hook 'org-load-hook (lambda () (org-add-link-type "img" 'org-custom-link-img-follow 'org-custom-link-img-export)) t)
+
+(use-package org-download
+  :after org
+    :bind (:map org-mode-map
+              ("<f2>" . org-download-screenshot))
+  :config
+  (setq org-download-image-dir org-attach-id-dir
+        org-download-method 'attach
+        org-download-timestamp "_%Y%m%d_%H%M%S"
+        org-download-screenshot-file (concat temporary-file-directory "screenshot.png")
+        org-download-screenshot-method
+        (cond ((executable-find "maim")  "maim -s %s")
+              ((executable-find "scrot") "scrot -so %s")))
+  (org-download-enable))
 
 (provide 'init-org)
