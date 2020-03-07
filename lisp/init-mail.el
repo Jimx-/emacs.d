@@ -75,6 +75,24 @@
                    (let ((maildir (mu4e-message-field msg :maildir)))
                      (format "%s" (substring maildir 1 (string-match-p "/" maildir 1)))))))
 
+    ;; Use fancy icons
+  (setq mu4e-headers-has-child-prefix '("+" . "")
+        mu4e-headers-empty-parent-prefix '("-" . "")
+        mu4e-headers-first-child-prefix '("\\" . "")
+        mu4e-headers-duplicate-prefix '("=" . "")
+        mu4e-headers-default-prefix '("|" . "")
+        mu4e-headers-draft-mark '("D" . "")
+        mu4e-headers-flagged-mark '("F" . "")
+        mu4e-headers-new-mark '("N" . "")
+        mu4e-headers-passed-mark '("P" . "")
+        mu4e-headers-replied-mark '("R" . "")
+        mu4e-headers-seen-mark '("S" . "")
+        mu4e-headers-trashed-mark '("T" . "")
+        mu4e-headers-attach-mark '("a" . "")
+        mu4e-headers-encrypted-mark '("x" . "")
+        mu4e-headers-signed-mark '("s" . "")
+        mu4e-headers-unread-mark '("u" . ""))
+
   (use-package mu4e-maildirs-extension
     :config
     (mu4e-maildirs-extension)
