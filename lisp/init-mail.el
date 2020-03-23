@@ -75,7 +75,7 @@
                    (let ((maildir (mu4e-message-field msg :maildir)))
                      (format "%s" (substring maildir 1 (string-match-p "/" maildir 1)))))))
 
-    ;; Use fancy icons
+  ;; Use fancy icons
   (setq mu4e-headers-has-child-prefix '("+" . "")
         mu4e-headers-empty-parent-prefix '("-" . "")
         mu4e-headers-first-child-prefix '("\\" . "")
@@ -101,7 +101,6 @@
           mu4e-maildirs-extension-action-text "\t[g] Update mail and index\n"
           mu4e-maildirs-extension-maildir-expanded-prefix "-"
           mu4e-maildirs-extension-maildir-default-prefix "|"))
-
 
   (use-package org-mu4e
     :ensure nil

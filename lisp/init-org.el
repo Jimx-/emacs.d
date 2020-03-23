@@ -73,9 +73,6 @@
   (use-package org-preview-html
     :diminish org-preview-html-mode)
 
-  ;; Convert buffer text and decorations to HTML
-  (use-package htmlize)
-
   ;; Handle non-image files a little differently. Images should be inserted
   ;; as-is, as image previews. Other files, like pdfs or zips, should be linked
   ;; to, with an icon indicating the type of file.
