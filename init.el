@@ -1,5 +1,5 @@
 ;; -*- lexical-binding: t -*-
-(setq debug-on-error t)
+(setq debug-on-error nil)
 
 
 (let ((minver "24.4"))
@@ -57,6 +57,7 @@
 (require 'init-lsp)
 
 (require 'init-mail)
+(require 'init-rss)
 
 (require 'init-cc)
 (require 'init-lisp)

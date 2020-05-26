@@ -10,7 +10,8 @@
          (TeX-mode . TeX-fold-mode)
          (TeX-mode . rainbow-delimiters-mode)
          (TeX-mode . LaTeX-math-mode)
-         (TeX-mode . flyspell-mode))
+         (TeX-mode . flyspell-mode)
+         (TeX-mode . turn-on-auto-fill))
   :init
   (setq TeX-parse-self t
         TeX-auto-save t)

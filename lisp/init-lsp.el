@@ -1,14 +1,15 @@
 (use-package lsp-mode
   :commands lsp
   :diminish lsp-mode
-  :hook (((go-mode python-mode ruby-mode php-mode
+  :hook (((go-mode ruby-mode php-mode
                    html-mode web-mode json-mode
                    css-mode less-mode sass-mode scss-mode
                    js-mode js2-mode typescript-mode
                    rust-mode groovy-mode) . lsp)
          (((haskell-mode rust-mode) . (lambda () (add-hook 'before-save-hook 'lsp-format-buffer)))))
   :init
-  (setq lsp-prefer-flymake nil)
+  (setq lsp-prefer-flymake nil
+        lsp-signature-auto-activate nil)
   ;; Support LSP in org babel
   ;; https://github.com/emacs-lsp/lsp-mode/issues/377
   (cl-defmacro lsp-org-babel-enbale (lang)
@@ -50,30 +51,30 @@
   :hook (lsp-mode . lsp-ui-mode)
   :init
   ;; (setq lsp-ui-doc-use-webkit t)
-  (setq-default lsp-ui-doc-frame-parameters
-                '((left . -1)
-                  (top . -1)
-                  (no-accept-focus . t)
-                  (min-width . 0)
-                  (width . 0)
-                  (min-height . 0)
-                  (height . 0)
-                  (internal-border-width . 0)
-                  (vertical-scroll-bars)
-                  (horizontal-scroll-bars)
-                  (left-fringe . 0)
-                  (right-fringe . 0)
-                  (menu-bar-lines . 0)
-                  (tool-bar-lines . 0)
-                  (line-spacing . 0.1)
-                  (unsplittable . t)
-                  (undecorated . t)
-                  (minibuffer . nil)
-                  (visibility . nil)
-                  (mouse-wheel-frame . nil)
-                  (no-other-frame . t)
-                  (cursor-type)
-                  (no-special-glyphs . t)))
+  ;; (setq-default lsp-ui-doc-frame-parameters
+  ;;               '((left . -1)
+  ;;                 (top . -1)
+  ;;                 (no-accept-focus . t)
+  ;;                 (min-width . 0)
+  ;;                 (width . 0)
+  ;;                 (min-height . 0)
+  ;;                 (height . 0)
+  ;;                 (internal-border-width . 0)
+  ;;                 (vertical-scroll-bars)
+  ;;                 (horizontal-scroll-bars)
+  ;;                 (left-fringe . 0)
+  ;;                 (right-fringe . 0)
+  ;;                 (menu-bar-lines . 0)
+  ;;                 (tool-bar-lines . 0)
+  ;;                 (line-spacing . 0.1)
+  ;;                 (unsplittable . t)
+  ;;                 (undecorated . t)
+  ;;                 (minibuffer . nil)
+  ;;                 (visibility . nil)
+  ;;                 (mouse-wheel-frame . nil)
+  ;;                 (no-other-frame . t)
+  ;;                 (cursor-type)
+  ;;                 (no-special-glyphs . t)))
   :config
   (setq lsp-ui-doc-enable t
         lsp-enable-completion-at-point t
@@ -126,6 +127,7 @@
 (use-package lsp-python-ms
   :hook (python-mode . (lambda ()
                          (require 'lsp-python-ms)
+                         (setq lsp-enabled-clients '(mspyls))
                          (lsp)))
   :config
   (setq lsp-python-ms-executable "/usr/bin/mspyls"))

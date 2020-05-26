@@ -48,7 +48,12 @@
       quelpa-melpa-recipe-stores nil
       quelpa-self-upgrade-p nil)
 
-(use-package quelpa)
+(unless (package-installed-p 'quelpa)
+    (with-temp-buffer
+      (url-insert-file-contents "https://github.com/quelpa/quelpa/raw/master/quelpa.el")
+      (eval-buffer)
+      (quelpa-self-upgrade)))
+
 (quelpa
  '(quelpa-use-package
    :fetcher git

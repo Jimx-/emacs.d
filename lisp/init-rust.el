@@ -24,6 +24,8 @@
 
 (use-package cargo
   :after rust-mode
-  :hook ((rust-mode rustic-mode) . cargo-minor-mode))
+  :hook ((rust-mode rustic-mode) . cargo-minor-mode)
+  :config
+  (setq cargo-process--enable-rust-backtrace t))
 
 (provide 'init-rust)

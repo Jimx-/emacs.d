@@ -120,7 +120,7 @@
         org-download-screenshot-file (concat temporary-file-directory "screenshot.png")
         org-download-screenshot-method
         (cond ((executable-find "maim")  "maim -s %s")
-              ((executable-find "scrot") "scrot -so %s")))
+              ((executable-find "scrot") "scrot -a $(slop -f '%%x,%%y,%%w,%%h') %s")))
   (org-download-enable))
 
 (provide 'init-org)

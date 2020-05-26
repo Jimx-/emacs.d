@@ -15,4 +15,13 @@
          ("s-j" . crux-top-join-line)
          ("s-k" . crux-kill-whole-line)))
 
+(use-package rime
+  :quelpa (rime :fetcher github
+                :repo "DogLooksGood/emacs-rime"
+                :files ("*.el" "Makefile" "lib.c"))
+  :custom
+  (default-input-method "rime")
+  (rime-show-candidate 'posframe)
+  (rime-user-data-dir "~/.config/fcitx/rime"))
+
 (provide 'init-utils)
