@@ -129,6 +129,10 @@
           ("crefname" "{")))
   )
 
+(use-package cdlatex
+  :hook ((LaTeX-mode . cdlatex-mode)
+         (org-mode . org-cdlatex-mode)))
+
 (use-package reftex
   :hook (LaTeX-mode . reftex-mode)
   :config
@@ -140,6 +144,14 @@
 
 (use-package ivy-bibtex
   :config
+  (setq ivy-bibtex-default-action 'ivy-bibtex-insert-key
+        bibtex-completion-pdf-field "file"
+        bibtex-completion-pdf-symbol "⌘")
+
+  (setq bibtex-completion-pdf-open-function
+        (lambda (fpath)
+          (call-process "zathura" nil 0 nil fpath)))
+
   (when custom-latex-bibtex-file
     (setq bibtex-completion-bibliography (list (expand-file-name custom-latex-bibtex-file)))))
 

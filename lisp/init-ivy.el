@@ -150,7 +150,7 @@
         ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-center)))
 
   ;; posframe does not work well with mouse
-  (setq posframe-mouse-banish t)
+  ;; (setq posframe-mouse-banish t)
 
   (dolist (fn '(swiper counsel-ag counsel-grep counsel-git-grep))
     (setf (alist-get fn ivy-display-functions-alist) #'ivy-display-function-fallback)))
