@@ -145,8 +145,25 @@
 (use-package ivy-bibtex
   :config
   (setq ivy-bibtex-default-action 'ivy-bibtex-insert-key
+        bibtex-completion-notes-path (expand-file-name "papers" custom-org-directory)
         bibtex-completion-pdf-field "file"
-        bibtex-completion-pdf-symbol "⌘")
+        bibtex-completion-pdf-symbol "⌘"
+        bibtex-completion-notes-template-multiple-files
+        (concat
+         "#+TITLE: ${title}\n"
+         "#+ROAM_KEY: cite:${=key=}\n"
+         "* TODO Notes\n"
+         ":PROPERTIES:\n"
+         ":Custom_ID: ${=key=}\n"
+         ":NOTER_DOCUMENT: %(orb-process-file-field \"${=key=}\")\n"
+         ":AUTHOR: ${author-abbrev}\n"
+         ":JOURNAL: ${journaltitle}\n"
+         ":DATE: ${date}\n"
+         ":YEAR: ${year}\n"
+         ":DOI: ${doi}\n"
+         ":URL: ${url}\n"
+         ":END:\n\n"
+         ))
 
   (setq bibtex-completion-pdf-open-function
         (lambda (fpath)

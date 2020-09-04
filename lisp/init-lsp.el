@@ -10,6 +10,9 @@
   :init
   (setq lsp-prefer-flymake nil
         lsp-signature-auto-activate nil)
+
+  (setq lsp-enable-file-watchers nil)
+
   ;; Support LSP in org babel
   ;; https://github.com/emacs-lsp/lsp-mode/issues/377
   (cl-defmacro lsp-org-babel-enbale (lang)
@@ -36,10 +39,7 @@
   (defvar org-babel-lang-list
     '("go" "ruby" "js" "css" "sass" "C" "rust" "java"))
   (dolist (lang org-babel-lang-list)
-    (eval `(lsp-org-babel-enbale ,lang)))
-
-  :config
-  (require 'lsp-clients))
+    (eval `(lsp-org-babel-enbale ,lang))))
 
 (use-package lsp-ui
   :after lsp-mode
@@ -124,13 +124,12 @@
                     ".ccls")
                   projectile-project-root-files-top-down-recurring))))
 
-(use-package lsp-python-ms
+(use-package lsp-pyright
+  :ensure t
   :hook (python-mode . (lambda ()
-                         (require 'lsp-python-ms)
-                         (setq lsp-enabled-clients '(mspyls))
-                         (lsp)))
-  :config
-  (setq lsp-python-ms-executable "/usr/bin/mspyls"))
+                         (require 'lsp-pyright)
+                         (setq lsp-enabled-clients '(pyright))
+                         (lsp))))
 
 (use-package lsp-haskell
   :hook ((haskell-mode . (lambda ()

@@ -1,7 +1,7 @@
 (use-package elfeed
   :commands elfeed
   :config
-  (setq elfeed-search-filter "@2-week-ago"))
+  (setq elfeed-search-filter "@4-week-ago"))
 
 (use-package elfeed-org
   :preface

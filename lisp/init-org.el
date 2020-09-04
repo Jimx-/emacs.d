@@ -1,3 +1,7 @@
+(defcustom custom-org-directory (expand-file-name "~/org/")
+  "Set org directory."
+  :type 'string)
+
 (use-package org
   :ensure nil
   ;; Use variable pitch font when writing prose in Org-mode
@@ -5,9 +9,9 @@
          (org-mode . visual-line-mode))
 
   :config
-  (setq org-directory "~/org/"
-        org-agenda-files (ignore-errors (directory-files-recursively org-directory "^\\(_.*\\|ref\\)\\.org$" t))
-        org-attach-id-dir (concat org-directory ".attach/")
+  (setq org-directory custom-org-directory
+        org-agenda-files (ignore-errors (directory-files-recursively custom-org-directory "^\\(_.*\\|ref\\)\\.org$" t))
+        org-attach-id-dir (expand-file-name ".attach" custom-org-directory)
         org-attach-store-link-p t
         org-todo-keywords '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)" "CANCEL(c)"))
         org-startup-indented t
@@ -34,6 +38,7 @@
 
   ;; Use fixed pitch font for org-block, etc.
   (add-hook 'org-mode-hook '(lambda ()
+                              (require 'org-indent)
                               (mapc (lambda (face)
                                       (set-face-attribute face nil :inherit 'fixed-pitch))
                                     '(org-code org-block org-table org-link org-verbatim
@@ -90,8 +95,8 @@
                       (format "#+attr_latex: :width %dcm\n" org-download-image-latex-width))
                     (cond ((file-in-directory-p filename org-attach-directory)
                            (format "[[file:%s]]" filename))
-                          ((file-in-directory-p filename org-directory)
-                           (format org-download-link-format (file-relative-name filename org-directory)))
+                          ((file-in-directory-p filename custom-org-directory)
+                           (format org-download-link-format (file-relative-name filename custom-org-directory)))
                           ((format org-download-link-format filename)))))
            (org-display-inline-images))
           ((insert
@@ -122,5 +127,33 @@
         (cond ((executable-find "maim")  "maim -s %s")
               ((executable-find "scrot") "scrot -a $(slop -f '%%x,%%y,%%w,%%h') %s")))
   (org-download-enable))
+
+(use-package org-noter
+  :after (:any org pdf-view)
+  :config
+  (setq org-noter-notes-window-location 'other-frame
+        org-noter-always-create-frame nil
+        org-noter-hide-other nil
+        org-noter-notes-search-path (list custom-org-directory)))
+
+(use-package org-roam-bibtex
+  :after org-roam
+  :hook (org-roam-mode . org-roam-bibtex-mode)
+  :bind (:map org-mode-map
+              (("C-c n a" . orb-note-actions))))
+
+(use-package org-roam
+  :ensure t
+  :hook
+  (org-load . org-roam-mode)
+  :custom
+  (org-roam-directory (expand-file-name "roam" custom-org-directory))
+  :bind (:map org-roam-mode-map
+              (("C-c n l" . org-roam)
+               ("C-c n f" . org-roam-find-file)
+               ("C-c n g" . org-roam-graph-show))
+              :map org-mode-map
+              (("C-c n i" . org-roam-insert))
+              (("C-c n I" . org-roam-insert-immediate))))
 
 (provide 'init-org)
