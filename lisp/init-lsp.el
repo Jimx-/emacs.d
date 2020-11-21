@@ -136,6 +136,6 @@
                            (require 'lsp-haskell)
                            (lsp))))
   :init
-  (setq lsp-haskell--make-init-options '()))
+  (setq lsp-haskell-process-path-hie "haskell-language-server-wrapper"))
 
 (provide 'init-lsp)

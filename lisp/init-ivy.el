@@ -126,7 +126,8 @@
               ))))
 
     (setq ivy-rich-parse-remote-buffer nil)
-    (ivy-rich-mode 1))
+    (ivy-rich-mode 1)
+    (ivy-posframe-mode 1))
 
 
   ;; Select from xref candidates with Ivy
@@ -140,7 +141,6 @@
 ;; Use posframe to show candidates
 (use-package ivy-posframe
   :if (> emacs-major-version 25)
-  :hook (ivy-mode . ivy-posframe-enable)
   :config
   (setq ivy-fixed-height-minibuffer nil
         ivy-posframe-parameters
