@@ -94,10 +94,15 @@
 ;;          refer to  https://github.com/MaskRay/ccls/wiki/Getting-started
 (defun clang-format-buffer-smart ()
   "Reformat buffer if .clang-format exists in the projectile root."
-  (when (f-exists?
-         (expand-file-name
-          ".clang-format"
-          (projectile-project-root)))
+  (when (and (f-exists?
+              (expand-file-name
+               ".clang-format"
+               (projectile-project-root)))
+             (not
+              (f-exists?
+              (expand-file-name
+               ".noformat"
+               (projectile-project-root)))))
     (lsp-format-buffer)))
 
 (use-package ccls

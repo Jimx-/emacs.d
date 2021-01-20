@@ -58,7 +58,9 @@
   ;; Babel
   (setq org-confirm-babel-evaluate nil
         org-src-fontify-natively t
-        org-src-tab-acts-natively t)
+        org-src-tab-acts-natively t
+        org-src-preserve-indentation nil
+        org-edit-src-content-indentation 0)
 
   (defvar load-language-list '((emacs-lisp . t)
                                (perl . t)
@@ -70,7 +72,8 @@
                                (C . t)
                                (java . t)
                                (dot . t)
-                               (plantuml . t)))
+                               (plantuml . t)
+                               (shell . t)))
 
   (org-babel-do-load-languages 'org-babel-load-languages load-language-list)
 
