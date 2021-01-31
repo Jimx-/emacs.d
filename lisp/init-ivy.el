@@ -127,7 +127,9 @@
 
     (setq ivy-rich-parse-remote-buffer nil)
     (ivy-rich-mode 1)
-    (ivy-posframe-mode 1))
+
+    (when (display-graphic-p)
+      (ivy-posframe-mode 1)))
 
 
   ;; Select from xref candidates with Ivy

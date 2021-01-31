@@ -143,7 +143,15 @@
   :after org-roam
   :hook (org-roam-mode . org-roam-bibtex-mode)
   :bind (:map org-mode-map
-              (("C-c n a" . orb-note-actions))))
+              (("C-c n a" . orb-note-actions)))
+  :config
+  (setq org-roam-bibtex-preformat-keywords
+   '("=key=" "title" "url" "file" "author-or-editor" "keywords"))
+  (setq orb-templates
+      '(("r" "ref" plain (function org-roam-capture--get-point) ""
+         :file-name "${citekey}"
+         :head "#+TITLE: ${citekey}: ${title}\n#+ROAM_KEY: ${ref}\n" ; <--
+         :unnarrowed t))))
 
 (use-package org-roam
   :ensure t
@@ -158,5 +166,18 @@
               :map org-mode-map
               (("C-c n i" . org-roam-insert))
               (("C-c n I" . org-roam-insert-immediate))))
+
+(use-package bibtex-completion)
+
+(use-package org-ref
+  :after org
+  :config
+  (setq
+   org-ref-completion-library 'org-ref-ivy-cite
+   org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex
+   org-ref-default-bibliography (list custom-latex-bibtex-file)
+   org-ref-bibliography-notes (expand-file-name "papers/notes.org" custom-org-directory)
+   org-ref-notes-directory (expand-file-name "papers" custom-org-directory)
+   org-ref-notes-function 'orb-edit-notes))
 
 (provide 'init-org)
