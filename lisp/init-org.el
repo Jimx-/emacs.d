@@ -6,7 +6,9 @@
   :ensure nil
   ;; Use variable pitch font when writing prose in Org-mode
   :hook ((org-mode . variable-pitch-mode)
-         (org-mode . visual-line-mode))
+         (org-mode . visual-line-mode)
+         (org-mode . (lambda ()
+                       (electric-indent-local-mode -1))))
 
   :config
   (setq org-directory custom-org-directory

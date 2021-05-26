@@ -46,7 +46,8 @@
   ;; only show bad whitespace
   (setq whitespace-style '(face
                            trailing space-before-tab
-                           indentation empty space-after-tab))
+                           indentation empty space-after-tab
+                           tab-mark))
 
   (with-eval-after-load 'popup
     ;; advice for whitespace-mode conflict with popup

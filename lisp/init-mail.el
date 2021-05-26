@@ -114,4 +114,6 @@
     (add-hook 'message-send-hook
               (lambda () (setq-local org-mu4e-convert-to-html nil)))))
 
+(use-package org-msg)
+
 (provide 'init-mail)
