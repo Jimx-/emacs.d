@@ -83,11 +83,6 @@
         lsp-ui-doc-include-signature t
         lsp-ui-sideline-enable nil))
 
-(use-package company-lsp
-  :after company
-  :defines company-backends
-  :functions company-backend-with-yas
-  :init (cl-pushnew (company-backend-with-yas 'company-lsp) company-backends))
 
 ;; C/C++/Objective-C lang server support for lsp-mode using clang
 ;; Install: yaourt ccls
