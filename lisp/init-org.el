@@ -36,17 +36,17 @@
     :hook (org-mode . org-bullets-mode))
 
   ;; Use bar cursor under
-  (add-hook 'org-mode-hook '(lambda () (setq cursor-type 'bar)))
+  (add-hook 'org-mode-hook #'(lambda () (setq cursor-type 'bar)))
 
   ;; Use fixed pitch font for org-block, etc.
-  (add-hook 'org-mode-hook '(lambda ()
-                              (require 'org-indent)
-                              (mapc (lambda (face)
-                                      (set-face-attribute face nil :inherit 'fixed-pitch))
-                                    '(org-code org-block org-table org-link org-verbatim
-                                               org-block-begin-line org-block-end-line
-                                               org-meta-line org-document-info-keyword))
-                              (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))))
+  (add-hook 'org-mode-hook #'(lambda ()
+                               (require 'org-indent)
+                               (mapc (lambda (face)
+                                       (set-face-attribute face nil :inherit 'fixed-pitch))
+                                     '(org-code org-block org-table org-link org-verbatim
+                                                org-block-begin-line org-block-end-line
+                                                org-meta-line org-document-info-keyword))
+                               (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))))
 
   ;; Pretty symbols
   (set-pretty-symbols 'org-mode
@@ -158,7 +158,7 @@
 (use-package org-roam
   :ensure t
   :hook
-  (org-load . org-roam-mode)
+  (org-load . org-roam-db-autosync-mode)
   :custom
   (org-roam-directory (expand-file-name "roam" custom-org-directory))
   :bind (:map org-roam-mode-map
@@ -169,7 +169,10 @@
               (("C-c n i" . org-roam-insert))
               (("C-c n I" . org-roam-insert-immediate))))
 
-(use-package bibtex-completion)
+(use-package bibtex-completion
+  :config
+  (setq    bibtex-completion-bibliography (list custom-latex-bibtex-file)
+           bibtex-completion-notes-path (expand-file-name "papers/notes.org" custom-org-directory)))
 
 (use-package org-ref
   :after org
@@ -177,8 +180,6 @@
   (setq
    org-ref-completion-library 'org-ref-ivy-cite
    org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex
-   org-ref-default-bibliography (list custom-latex-bibtex-file)
-   org-ref-bibliography-notes (expand-file-name "papers/notes.org" custom-org-directory)
    org-ref-notes-directory (expand-file-name "papers" custom-org-directory)
    org-ref-notes-function 'orb-edit-notes))
 
