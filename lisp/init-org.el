@@ -158,7 +158,7 @@
 (use-package org-roam
   :ensure t
   :hook
-  (org-load . org-roam-mode)
+  (org-load . org-roam-setup)
   :custom
   (org-roam-directory (expand-file-name "roam" custom-org-directory))
   :bind (:map org-roam-mode-map

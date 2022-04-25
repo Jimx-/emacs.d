@@ -57,7 +57,9 @@
 ;; Treat undo history as a tree
 (use-package undo-tree
   :diminish undo-tree-mode
-  :hook (after-init . global-undo-tree-mode))
+  :hook (after-init . global-undo-tree-mode)
+  :init
+  (setq undo-tree-auto-save-history nil))
 
 ;; Expand region
 (use-package expand-region

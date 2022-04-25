@@ -9,7 +9,8 @@
          (((haskell-mode rust-mode) . (lambda () (add-hook 'before-save-hook 'lsp-format-buffer)))))
   :init
   (setq lsp-prefer-flymake nil
-        lsp-signature-auto-activate nil)
+        lsp-signature-auto-activate nil
+        lsp-lens-enable nil)
 
   (setq lsp-enable-file-watchers nil)
 
