@@ -130,7 +130,9 @@
   :hook (python-mode . (lambda ()
                          (require 'lsp-pyright)
                          (setq lsp-enabled-clients '(pyright))
-                         (lsp))))
+                         (lsp)))
+  :config
+  (setq lsp-pyright-auto-import-completions nil))
 
 (use-package lsp-haskell
   :hook ((haskell-mode . (lambda ()
