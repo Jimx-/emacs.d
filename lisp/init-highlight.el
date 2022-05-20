@@ -21,18 +21,18 @@
     :diminish
     :hook (prog-mode . highlight-indent-guides-mode)
     :config
-    (setq highlight-indent-guides-method 'bitmap
-          highlight-indent-guides-bitmap-function 'highlight-indent-guides--bitmap-line
+    (setq highlight-indent-guides-method 'character
+          ;; highlight-indent-guides-bitmap-function 'highlight-indent-guides--bitmap-line
           highlight-indent-guides-responsive t
           highlight-indent-guides-suppress-auto-error t)
 
-    (with-no-warnings
-      ;; Don't display first level of indentation
-      (defun my-indent-guides-for-all-but-first-column (level responsive display)
-        (unless (< level 1)
-          (highlight-indent-guides--highlighter-default level responsive display)))
-      (setq highlight-indent-guides-highlighter-function
-            #'my-indent-guides-for-all-but-first-column))
+    ;; (with-no-warnings
+    ;;   ;; Don't display first level of indentation
+    ;;   (defun my-indent-guides-for-all-but-first-column (level responsive display)
+    ;;     (unless (< level 1)
+    ;;       (highlight-indent-guides--highlighter-default level responsive display)))
+    ;;   (setq highlight-indent-guides-highlighter-function
+    ;;         #'my-indent-guides-for-all-but-first-column))
 
     ;; Disable `highlight-indet-guides-mode' in `swiper'
     ;; https://github.com/DarthFennec/highlight-indent-guides/issues/40
