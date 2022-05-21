@@ -1,3 +1,6 @@
+(when (fboundp 'set-charset-priority)
+  (set-charset-priority 'unicode))
+
 (prefer-coding-system 'utf-8)
 
 ;; Basic preferences
@@ -32,6 +35,16 @@
   :bind (("M-z" . avy-zap-to-char-dwim)
          ("M-Z" . avy-zap-up-to-char-dwim)))
 
+;; Show number of matches in mode-line while searching
+(use-package anzu
+  :diminish
+  :bind (([remap query-replace] . anzu-query-replace)
+         ([remap query-replace-regexp] . anzu-query-replace-regexp)
+         :map isearch-mode-map
+         ([remap isearch-query-replace] . anzu-isearch-query-replace)
+         ([remap isearch-query-replace-regexp] . anzu-isearch-query-replace-regexp))
+  :hook (after-init . global-anzu-mode))
+
 ;; An all-in-one comment command to rule them all
 (use-package comment-dwim-2
   :bind ("M-;" . comment-dwim-2))
@@ -59,7 +72,8 @@
   :diminish undo-tree-mode
   :hook (after-init . global-undo-tree-mode)
   :init
-  (setq undo-tree-auto-save-history nil))
+  (setq undo-tree-enable-undo-in-region nil
+        undo-tree-auto-save-history nil))
 
 ;; Expand region
 (use-package expand-region
@@ -71,8 +85,8 @@
 
 ;; Move to the beginning/end of line or code
 (use-package mwim
-  :bind (("C-a" . mwim-beginning-of-code-or-line)
-         ("C-e" . mwim-end-of-code-or-line)))
+  :bind (([remap move-beginning-of-line] . mwim-beginning-of-code-or-line)
+         ([remap move-end-of-line] . mwim-end-of-code-or-line)))
 
 ;; Hideshow
 (use-package hideshow
@@ -114,5 +128,13 @@
         sp-max-pair-length 4
         sp-max-prefix-length 50
         sp-escape-quotes-after-insert nil))
+
+;; Hungry deletion
+(use-package hungry-delete
+  :diminish
+  :hook (after-init . global-hungry-delete-mode)
+  :init (setq hungry-delete-chars-to-skip " \t\f\v"
+              hungry-delete-except-modes
+              '(help-mode minibuffer-mode minibuffer-inactive-mode calc-mode)))
 
 (provide 'init-edit)

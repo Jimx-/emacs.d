@@ -35,7 +35,7 @@
 ;;----------------------------------------------------------------------------
 (require 'init-preload-local nil t)
 
-(require 'init-recentf)
+(require 'init-basic)
 (require 'init-ui)
 (require 'init-utils)
 (require 'init-highlight)
