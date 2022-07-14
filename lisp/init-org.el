@@ -1,6 +1,6 @@
-(defcustom custom-org-directory (expand-file-name "~/org/")
-  "Set org directory."
-  :type 'string)
+;; -*- lexical-binding: t -*-
+
+(require 'init-custom)
 
 (use-package org
   :ensure nil
@@ -141,20 +141,6 @@
         org-noter-hide-other nil
         org-noter-notes-search-path (list custom-org-directory)))
 
-(use-package org-roam-bibtex
-  :after org-roam
-  :hook (org-roam-mode . org-roam-bibtex-mode)
-  :bind (:map org-mode-map
-              (("C-c n a" . orb-note-actions)))
-  :config
-  (setq org-roam-bibtex-preformat-keywords
-   '("=key=" "title" "url" "file" "author-or-editor" "keywords"))
-  (setq orb-templates
-      '(("r" "ref" plain (function org-roam-capture--get-point) ""
-         :file-name "${citekey}"
-         :head "#+TITLE: ${citekey}: ${title}\n#+ROAM_KEY: ${ref}\n" ; <--
-         :unnarrowed t))))
-
 (use-package org-roam
   :ensure t
   :hook
@@ -168,11 +154,6 @@
               :map org-mode-map
               (("C-c n i" . org-roam-insert))
               (("C-c n I" . org-roam-insert-immediate))))
-
-(use-package bibtex-completion
-  :config
-  (setq    bibtex-completion-bibliography (list custom-latex-bibtex-file)
-           bibtex-completion-notes-path (expand-file-name "papers/notes.org" custom-org-directory)))
 
 (use-package org-ref
   :after org

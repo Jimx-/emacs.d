@@ -1,5 +1,6 @@
-(defvar custom-latex-bibtex-file nil
-  "File AUCTeX (specifically RefTeX) uses to search for citations.")
+;; -*- lexical-binding: t -*-
+
+(require 'init-custom)
 
 (add-to-list 'auto-mode-alist '("\\.tex\\'" . TeX-latex-mode))
 
@@ -141,36 +142,6 @@
 
   (when custom-latex-bibtex-file
     (setq reftex-default-bibliography (list (expand-file-name custom-latex-bibtex-file)))))
-
-(use-package ivy-bibtex
-  :config
-  (setq ivy-bibtex-default-action 'ivy-bibtex-insert-key
-        bibtex-completion-notes-path (expand-file-name "papers" custom-org-directory)
-        bibtex-completion-pdf-field "file"
-        bibtex-completion-pdf-symbol "⌘"
-        bibtex-completion-notes-template-multiple-files
-        (concat
-         "#+TITLE: ${title}\n"
-         "#+ROAM_KEY: cite:${=key=}\n"
-         "* TODO Notes\n"
-         ":PROPERTIES:\n"
-         ":Custom_ID: ${=key=}\n"
-         ":NOTER_DOCUMENT: ${file}\n"
-         ":AUTHOR: ${author-abbrev}\n"
-         ":JOURNAL: ${journaltitle}\n"
-         ":DATE: ${date}\n"
-         ":YEAR: ${year}\n"
-         ":DOI: ${doi}\n"
-         ":URL: ${url}\n"
-         ":END:\n\n"
-         ))
-
-  (setq bibtex-completion-pdf-open-function
-        (lambda (fpath)
-          (call-process "zathura" nil 0 nil fpath)))
-
-  (when custom-latex-bibtex-file
-    (setq bibtex-completion-bibliography (list (expand-file-name custom-latex-bibtex-file)))))
 
 (use-package company-auctex)
 (use-package company-reftex)

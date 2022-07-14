@@ -1,15 +1,6 @@
-;; If you don't customize it, this is the theme you get.
-(defvar custom-enabled-theme 'leuven
-  "A symbol representing the enabled theme.")
+;; -*- lexical-binding: t -*-
 
-(defvar custom-font nil
-  "The default font.")
-
-(defvar custom-unicode-font nil
-  "Fallback font for unicode glyph.")
-
-(defvar custom-variable-pitch-font nil
-  "The default font for variable-pitch text.")
+(require 'init-custom)
 
 (setq
  frame-title-format
@@ -40,10 +31,11 @@
   :hook ((after-init . nyan-mode)))
 
 (use-package doom-modeline
-  :hook ((after-init . doom-modeline-init)
+  :hook ((after-init . doom-modeline-mode)
          (dashboard-mode . doom-modeline-set-project-modeline))
   :init
   (setq doom-modeline-icon (display-graphic-p)
+        doom-modeline-height 1
         doom-modeline-minor-modes t)
   (unless after-init-time
     (setq-default mode-line-format nil)))

@@ -25,6 +25,7 @@
 ;; Bootstrap config
 ;;----------------------------------------------------------------------------
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(require 'init-custom)
 (require 'init-site-lisp) ;; Must come before elpa, as it may provide package.el
 ;; Calls (package-initialize)
 (require 'init-package)   ;; Machinery for installing required packages
@@ -50,7 +51,10 @@
 (require 'init-grep)
 (require 'init-shell)
 
-(require 'init-ivy)
+(cond ((eq custom-completion-frontend 'vertico)
+       (require 'init-vertico))
+      (t (require 'init-ivy)))
+
 (require 'init-company)
 (require 'init-yasnippet)
 (require 'init-projectile)
@@ -72,6 +76,8 @@
 (require 'init-go)
 (require 'init-latex)
 (require 'init-rust)
+
+(require 'init-biblio)
 
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
