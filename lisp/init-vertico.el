@@ -118,7 +118,7 @@
    consult-bookmark consult-recent-file consult-xref
    consult--source-bookmark consult--source-recent-file
    consult--source-project-recent-file
-   :preview-key (kbd "M-."))
+   :preview-key "M-.")
 
   (setq consult-narrow-key "<"
         consult-line-numbers-widen t
@@ -165,7 +165,8 @@
         completion-category-overrides '((file (styles partial-completion)))))
 
 (use-package all-the-icons-completion
-  :hook (marginalia-mode . all-the-icons-completion-marginalia-setup))
+  :hook (marginalia-mode . (lambda () (when (display-graphic-p)
+                                        (all-the-icons-completion-marginalia-setup)))))
 
 (use-package marginalia
   :bind (:map minibuffer-local-map
