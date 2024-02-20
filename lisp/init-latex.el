@@ -2,7 +2,7 @@
 
 (require 'init-custom)
 
-(add-to-list 'auto-mode-alist '("\\.tex\\'" . TeX-latex-mode))
+(add-to-list 'auto-mode-alist '("\\.tex\\'" . LaTeX-mode))
 
 (use-package tex
   :ensure auctex
