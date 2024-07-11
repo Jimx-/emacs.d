@@ -24,4 +24,13 @@
   (rime-show-candidate 'posframe)
   (rime-user-data-dir "~/.config/fcitx/rime"))
 
+(use-package rg
+  :hook (after-init . rg-enable-default-bindings)
+  :bind (:map rg-global-map
+         ("c" . rg-dwim-current-dir)
+         ("f" . rg-dwim-current-file)
+         ("m" . rg-menu))
+  :init (setq rg-group-result t
+              rg-show-columns t))
+
 (provide 'init-utils)
