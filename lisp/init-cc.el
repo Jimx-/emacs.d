@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (use-package cc-mode
   :ensure nil
   :commands (c-mode c++-mode objc-mode java-mode)

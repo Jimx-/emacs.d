@@ -76,6 +76,7 @@
 (require 'init-go)
 (require 'init-latex)
 (require 'init-rust)
+(require 'init-scala)
 
 (require 'init-biblio)
 

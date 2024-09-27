@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (use-package python
   :ensure nil
   :defer t

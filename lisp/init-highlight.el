@@ -18,6 +18,7 @@
 ;; Highlight indentions
 (when (display-graphic-p)
   (use-package highlight-indent-guides
+    :disabled
     :diminish
     :hook (prog-mode . highlight-indent-guides-mode)
     :config
@@ -44,6 +45,10 @@
             (when next
               (setq pos (text-property-any next limit prop nil str))
               (remove-text-properties next pos '(display nil face nil) str))))))))
+
+(use-package indent-bars
+  :diminish
+  :hook (prog-mode . indent-bars-mode))
 
 ;; Colorize color names in buffers
 (use-package rainbow-mode
