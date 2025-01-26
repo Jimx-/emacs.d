@@ -48,7 +48,12 @@
 
 (use-package indent-bars
   :diminish
-  :hook (prog-mode . indent-bars-mode))
+  :hook (prog-mode . indent-bars-mode)
+  :config
+  (require 'indent-bars-ts)
+  (setq indent-bars-width-frac 0.12
+        indent-bars-starting-column 0
+        indent-bars-treesit-support t))
 
 ;; Colorize color names in buffers
 (use-package rainbow-mode

@@ -220,10 +220,19 @@
       :bind (([remap next] . good-scroll-up-full-screen)
              ([remap prior] . good-scroll-down-full-screen)))))
 
+(setq hscroll-margin 2
+      hscroll-step 1
+      scroll-conservatively 10
+      scroll-margin 0
+      scroll-preserve-screen-position t
+      auto-window-vscroll nil
+      mouse-wheel-scroll-amount '(2 ((shift) . hscroll))
+      mouse-wheel-scroll-amount-horizontal 2)
+
 ;; Miscs
 
-(unless (> emacs-major-version 26) ; moved to early-init.el in emacs 27
-  (tooltip-mode -1)              ; relegate tooltips to echo area only
+(unless (> emacs-major-version 26)      ; moved to early-init.el in emacs 27
+  (tooltip-mode -1)                     ; relegate tooltips to echo area only
   (menu-bar-mode -1)
   (if (fboundp 'tool-bar-mode)   (tool-bar-mode -1))
   (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1)))
