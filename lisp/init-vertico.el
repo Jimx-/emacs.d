@@ -20,6 +20,10 @@
           (cdr args)))
   (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
 
+  :init
+  (when (display-graphic-p)
+    (vertico-posframe-mode 1))
+
   :config
   (setq vertico-resize nil
         vertico-count 17
@@ -208,7 +212,7 @@
 (use-package vertico-posframe
   :if (> emacs-major-version 25)
   :config
-  (setq vertico-posframe-border-width 1
+  (setq vertico-posframe-border-width 2
         vertico-posframe-parameters
         `((min-width . 70)
           (internal-border-width . 2))))
